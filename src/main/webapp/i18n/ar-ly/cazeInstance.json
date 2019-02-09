@@ -1,0 +1,37 @@
+{
+  "caseServiceApp": {
+    "cazeInstance": {
+      "home": {
+        "title": "Caze Instances",
+        "createLabel": "Create a new Caze Instance",
+        "createOrEditLabel": "Create or edit a Caze Instance"
+      },
+      "created": "A new Caze Instance is created with identifier {{ param }}",
+      "updated": "A Caze Instance is updated with identifier {{ param }}",
+      "deleted": "A Caze Instance is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Caze Instance {{ id }}?"
+      },
+      "detail": {
+        "title": "Caze Instance"
+      },
+      "name": "Name",
+      "description": "Description",
+      "number": "Number",
+      "creatorId": "Creator Id",
+      "issuerID": "Issuer ID",
+      "creationDate": "Creation Date",
+      "caseDate": "Case Date",
+      "priority": "Priority",
+      "requiredTime": "Required Time",
+      "secured": "Secured",
+      "cmmnId": "Cmmn Id",
+      "caseDataObject": "Case Data Object",
+      "cazeInstance": "Caze Instance",
+      "cazeType": "Caze Type",
+      "relatedCaze": "Related Caze",
+      "camundaCaseInstance": "Camunda Case Instance",
+      "camundaProcessInstance": "Camunda Process Instance"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+    "name": "CamundaProcessInstance",
+    "fields": [
+        {
+            "fieldName": "processInstanceId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "processInstanceName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "camundaProcessInstance",
+            "relationshipName": "cazeInstance",
+            "otherEntityName": "cazeInstance",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190209192709",
+    "entityTableName": "camunda_process_instance",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

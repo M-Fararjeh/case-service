@@ -41,6 +41,22 @@ public class CacheConfiguration {
             cm.createCache(com.edigitpath.caze.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.edigitpath.caze.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.edigitpath.caze.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeInstance.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeInstance.class.getName() + ".caseDataObjects", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeInstance.class.getName() + ".cazeInstances", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeInstance.class.getName() + ".camundaCaseInstances", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeInstance.class.getName() + ".camundaProcessInstances", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeType.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CamundaCaseInstance.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CamundaCaseInstance.class.getName() + ".cazeInstances", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CamundaProcessInstance.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CamundaProcessInstance.class.getName() + ".cazeInstances", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CaseDataObject.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.ApiDataObject.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.ApiDataObject.class.getName() + ".apiHeaders", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.ApiHeader.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.DbDataObject.class.getName(), jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.FileDataObject.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

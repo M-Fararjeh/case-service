@@ -1,0 +1,26 @@
+{
+  "caseServiceApp": {
+    "caseDataObject": {
+      "home": {
+        "title": "Case Data Objects",
+        "createLabel": "Create a new Case Data Object",
+        "createOrEditLabel": "Create or edit a Case Data Object"
+      },
+      "created": "A new Case Data Object is created with identifier {{ param }}",
+      "updated": "A Case Data Object is updated with identifier {{ param }}",
+      "deleted": "A Case Data Object is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Case Data Object {{ id }}?"
+      },
+      "detail": {
+        "title": "Case Data Object"
+      },
+      "type": "Type",
+      "key": "Key",
+      "apiDataObject": "Api Data Object",
+      "dbDataObject": "Db Data Object",
+      "fileDataObject": "File Data Object",
+      "caseId": "Case Id"
+    }
+  }
+}

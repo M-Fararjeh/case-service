@@ -1,0 +1,24 @@
+{
+  "caseServiceApp": {
+    "cazeType": {
+      "home": {
+        "title": "Caze Types",
+        "createLabel": "Create a new Caze Type",
+        "createOrEditLabel": "Create or edit a Caze Type"
+      },
+      "created": "A new Caze Type is created with identifier {{ param }}",
+      "updated": "A Caze Type is updated with identifier {{ param }}",
+      "deleted": "A Caze Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Caze Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Caze Type"
+      },
+      "name": "Name",
+      "priority": "Priority",
+      "requiredTime": "Required Time",
+      "secured": "Secured"
+    }
+  }
+}

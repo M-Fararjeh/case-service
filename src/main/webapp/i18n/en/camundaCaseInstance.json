@@ -1,0 +1,23 @@
+{
+  "caseServiceApp": {
+    "camundaCaseInstance": {
+      "home": {
+        "title": "Camunda Case Instances",
+        "createLabel": "Create a new Camunda Case Instance",
+        "createOrEditLabel": "Create or edit a Camunda Case Instance"
+      },
+      "created": "A new Camunda Case Instance is created with identifier {{ param }}",
+      "updated": "A Camunda Case Instance is updated with identifier {{ param }}",
+      "deleted": "A Camunda Case Instance is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Camunda Case Instance {{ id }}?"
+      },
+      "detail": {
+        "title": "Camunda Case Instance"
+      },
+      "caseInstanceId": "Case Instance Id",
+      "caseInstanceName": "Case Instance Name",
+      "cazeInstance": "Caze Instance"
+    }
+  }
+}

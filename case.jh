@@ -1,0 +1,96 @@
+entity CazeInstance {
+    name String,
+    description String,
+    number String,
+    creatorId String,
+    issuerID String,
+    creationDate LocalDate,
+    caseDate LocalDate,
+    priority CasePriority,
+    requiredTime Integer,	
+    secured Boolean,
+    cmmnId String
+}
+
+// Should I write case type definiation here ? priority, requiredTime .....
+entity CazeType {
+    name String,
+    priority CasePriority,
+    requiredTime Integer,
+    secured Boolean
+}
+
+entity CamundaCaseInstance{
+	caseInstanceId String,
+    caseInstanceName String
+}
+
+entity CamundaProcessInstance{
+    processInstanceId String,
+    processInstanceName String
+}
+
+entity CaseDataObject{
+	type DataObjectType,
+    key String
+}
+
+entity ApiDataObject{
+	method ApiMethod,
+    url String,
+    body String
+}
+
+entity ApiHeader{
+	key String,
+    value String
+}
+
+entity DbDataObject{
+	tableName String,
+    columnName String,
+    columnValue String
+}
+
+entity FileDataObject{
+	cmisId String,
+    path String
+}
+
+enum DataObjectType {
+    API, DB, FILE
+}
+
+enum ApiMethod {
+    GET, POST
+}
+
+enum CasePriority {
+    HIGH, NORMAL, LOW
+}
+
+relationship OneToOne{
+	CaseDataObject to ApiDataObject
+    CaseDataObject to DbDataObject
+    CaseDataObject to FileDataObject
+}
+
+relationship ManyToOne {
+	CazeInstance{cazeType} to CazeType
+}
+
+relationship OneToMany {
+	CazeInstance to CaseDataObject{caseId},
+    ApiDataObject to ApiHeader
+    CazeInstance to CazeInstance{relatedCaze}
+}
+
+relationship ManyToMany {
+	CamundaCaseInstance to CazeInstance ,
+    CamundaProcessInstance to CazeInstance
+}
+paginate CazeInstance with pagination
+
+service all with serviceImpl
+
+

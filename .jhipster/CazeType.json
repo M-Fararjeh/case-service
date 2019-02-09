@@ -1,0 +1,32 @@
+{
+    "name": "CazeType",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "priority",
+            "fieldType": "CasePriority",
+            "fieldValues": "HIGH,NORMAL,LOW"
+        },
+        {
+            "fieldName": "requiredTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "secured",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190209192707",
+    "entityTableName": "caze_type",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

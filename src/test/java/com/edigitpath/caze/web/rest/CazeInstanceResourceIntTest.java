@@ -1,0 +1,344 @@
+package com.edigitpath.caze.web.rest;
+
+import com.edigitpath.caze.CaseServiceApp;
+
+import com.edigitpath.caze.domain.CazeInstance;
+import com.edigitpath.caze.repository.CazeInstanceRepository;
+import com.edigitpath.caze.service.CazeInstanceService;
+import com.edigitpath.caze.web.rest.errors.ExceptionTranslator;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+
+import static com.edigitpath.caze.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import com.edigitpath.caze.domain.enumeration.CasePriority;
+/**
+ * Test class for the CazeInstanceResource REST controller.
+ *
+ * @see CazeInstanceResource
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = CaseServiceApp.class)
+public class CazeInstanceResourceIntTest {
+
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_NUMBER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CREATOR_ID = "AAAAAAAAAA";
+    private static final String UPDATED_CREATOR_ID = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ISSUER_ID = "AAAAAAAAAA";
+    private static final String UPDATED_ISSUER_ID = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_CASE_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CASE_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final CasePriority DEFAULT_PRIORITY = CasePriority.HIGH;
+    private static final CasePriority UPDATED_PRIORITY = CasePriority.NORMAL;
+
+    private static final Integer DEFAULT_REQUIRED_TIME = 1;
+    private static final Integer UPDATED_REQUIRED_TIME = 2;
+
+    private static final Boolean DEFAULT_SECURED = false;
+    private static final Boolean UPDATED_SECURED = true;
+
+    private static final String DEFAULT_CMMN_ID = "AAAAAAAAAA";
+    private static final String UPDATED_CMMN_ID = "BBBBBBBBBB";
+
+    @Autowired
+    private CazeInstanceRepository cazeInstanceRepository;
+
+    @Autowired
+    private CazeInstanceService cazeInstanceService;
+
+    @Autowired
+    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
+
+    @Autowired
+    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+
+    @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private Validator validator;
+
+    private MockMvc restCazeInstanceMockMvc;
+
+    private CazeInstance cazeInstance;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final CazeInstanceResource cazeInstanceResource = new CazeInstanceResource(cazeInstanceService);
+        this.restCazeInstanceMockMvc = MockMvcBuilders.standaloneSetup(cazeInstanceResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
+    }
+
+    /**
+     * Create an entity for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static CazeInstance createEntity(EntityManager em) {
+        CazeInstance cazeInstance = new CazeInstance()
+            .name(DEFAULT_NAME)
+            .description(DEFAULT_DESCRIPTION)
+            .number(DEFAULT_NUMBER)
+            .creatorId(DEFAULT_CREATOR_ID)
+            .issuerID(DEFAULT_ISSUER_ID)
+            .creationDate(DEFAULT_CREATION_DATE)
+            .caseDate(DEFAULT_CASE_DATE)
+            .priority(DEFAULT_PRIORITY)
+            .requiredTime(DEFAULT_REQUIRED_TIME)
+            .secured(DEFAULT_SECURED)
+            .cmmnId(DEFAULT_CMMN_ID);
+        return cazeInstance;
+    }
+
+    @Before
+    public void initTest() {
+        cazeInstance = createEntity(em);
+    }
+
+    @Test
+    @Transactional
+    public void createCazeInstance() throws Exception {
+        int databaseSizeBeforeCreate = cazeInstanceRepository.findAll().size();
+
+        // Create the CazeInstance
+        restCazeInstanceMockMvc.perform(post("/api/caze-instances")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(cazeInstance)))
+            .andExpect(status().isCreated());
+
+        // Validate the CazeInstance in the database
+        List<CazeInstance> cazeInstanceList = cazeInstanceRepository.findAll();
+        assertThat(cazeInstanceList).hasSize(databaseSizeBeforeCreate + 1);
+        CazeInstance testCazeInstance = cazeInstanceList.get(cazeInstanceList.size() - 1);
+        assertThat(testCazeInstance.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testCazeInstance.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testCazeInstance.getNumber()).isEqualTo(DEFAULT_NUMBER);
+        assertThat(testCazeInstance.getCreatorId()).isEqualTo(DEFAULT_CREATOR_ID);
+        assertThat(testCazeInstance.getIssuerID()).isEqualTo(DEFAULT_ISSUER_ID);
+        assertThat(testCazeInstance.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
+        assertThat(testCazeInstance.getCaseDate()).isEqualTo(DEFAULT_CASE_DATE);
+        assertThat(testCazeInstance.getPriority()).isEqualTo(DEFAULT_PRIORITY);
+        assertThat(testCazeInstance.getRequiredTime()).isEqualTo(DEFAULT_REQUIRED_TIME);
+        assertThat(testCazeInstance.isSecured()).isEqualTo(DEFAULT_SECURED);
+        assertThat(testCazeInstance.getCmmnId()).isEqualTo(DEFAULT_CMMN_ID);
+    }
+
+    @Test
+    @Transactional
+    public void createCazeInstanceWithExistingId() throws Exception {
+        int databaseSizeBeforeCreate = cazeInstanceRepository.findAll().size();
+
+        // Create the CazeInstance with an existing ID
+        cazeInstance.setId(1L);
+
+        // An entity with an existing ID cannot be created, so this API call must fail
+        restCazeInstanceMockMvc.perform(post("/api/caze-instances")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(cazeInstance)))
+            .andExpect(status().isBadRequest());
+
+        // Validate the CazeInstance in the database
+        List<CazeInstance> cazeInstanceList = cazeInstanceRepository.findAll();
+        assertThat(cazeInstanceList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCazeInstances() throws Exception {
+        // Initialize the database
+        cazeInstanceRepository.saveAndFlush(cazeInstance);
+
+        // Get all the cazeInstanceList
+        restCazeInstanceMockMvc.perform(get("/api/caze-instances?sort=id,desc"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(cazeInstance.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].creatorId").value(hasItem(DEFAULT_CREATOR_ID.toString())))
+            .andExpect(jsonPath("$.[*].issuerID").value(hasItem(DEFAULT_ISSUER_ID.toString())))
+            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())))
+            .andExpect(jsonPath("$.[*].caseDate").value(hasItem(DEFAULT_CASE_DATE.toString())))
+            .andExpect(jsonPath("$.[*].priority").value(hasItem(DEFAULT_PRIORITY.toString())))
+            .andExpect(jsonPath("$.[*].requiredTime").value(hasItem(DEFAULT_REQUIRED_TIME)))
+            .andExpect(jsonPath("$.[*].secured").value(hasItem(DEFAULT_SECURED.booleanValue())))
+            .andExpect(jsonPath("$.[*].cmmnId").value(hasItem(DEFAULT_CMMN_ID.toString())));
+    }
+    
+    @Test
+    @Transactional
+    public void getCazeInstance() throws Exception {
+        // Initialize the database
+        cazeInstanceRepository.saveAndFlush(cazeInstance);
+
+        // Get the cazeInstance
+        restCazeInstanceMockMvc.perform(get("/api/caze-instances/{id}", cazeInstance.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(cazeInstance.getId().intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()))
+            .andExpect(jsonPath("$.creatorId").value(DEFAULT_CREATOR_ID.toString()))
+            .andExpect(jsonPath("$.issuerID").value(DEFAULT_ISSUER_ID.toString()))
+            .andExpect(jsonPath("$.creationDate").value(DEFAULT_CREATION_DATE.toString()))
+            .andExpect(jsonPath("$.caseDate").value(DEFAULT_CASE_DATE.toString()))
+            .andExpect(jsonPath("$.priority").value(DEFAULT_PRIORITY.toString()))
+            .andExpect(jsonPath("$.requiredTime").value(DEFAULT_REQUIRED_TIME))
+            .andExpect(jsonPath("$.secured").value(DEFAULT_SECURED.booleanValue()))
+            .andExpect(jsonPath("$.cmmnId").value(DEFAULT_CMMN_ID.toString()));
+    }
+
+    @Test
+    @Transactional
+    public void getNonExistingCazeInstance() throws Exception {
+        // Get the cazeInstance
+        restCazeInstanceMockMvc.perform(get("/api/caze-instances/{id}", Long.MAX_VALUE))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Transactional
+    public void updateCazeInstance() throws Exception {
+        // Initialize the database
+        cazeInstanceService.save(cazeInstance);
+
+        int databaseSizeBeforeUpdate = cazeInstanceRepository.findAll().size();
+
+        // Update the cazeInstance
+        CazeInstance updatedCazeInstance = cazeInstanceRepository.findById(cazeInstance.getId()).get();
+        // Disconnect from session so that the updates on updatedCazeInstance are not directly saved in db
+        em.detach(updatedCazeInstance);
+        updatedCazeInstance
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .number(UPDATED_NUMBER)
+            .creatorId(UPDATED_CREATOR_ID)
+            .issuerID(UPDATED_ISSUER_ID)
+            .creationDate(UPDATED_CREATION_DATE)
+            .caseDate(UPDATED_CASE_DATE)
+            .priority(UPDATED_PRIORITY)
+            .requiredTime(UPDATED_REQUIRED_TIME)
+            .secured(UPDATED_SECURED)
+            .cmmnId(UPDATED_CMMN_ID);
+
+        restCazeInstanceMockMvc.perform(put("/api/caze-instances")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(updatedCazeInstance)))
+            .andExpect(status().isOk());
+
+        // Validate the CazeInstance in the database
+        List<CazeInstance> cazeInstanceList = cazeInstanceRepository.findAll();
+        assertThat(cazeInstanceList).hasSize(databaseSizeBeforeUpdate);
+        CazeInstance testCazeInstance = cazeInstanceList.get(cazeInstanceList.size() - 1);
+        assertThat(testCazeInstance.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testCazeInstance.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testCazeInstance.getNumber()).isEqualTo(UPDATED_NUMBER);
+        assertThat(testCazeInstance.getCreatorId()).isEqualTo(UPDATED_CREATOR_ID);
+        assertThat(testCazeInstance.getIssuerID()).isEqualTo(UPDATED_ISSUER_ID);
+        assertThat(testCazeInstance.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
+        assertThat(testCazeInstance.getCaseDate()).isEqualTo(UPDATED_CASE_DATE);
+        assertThat(testCazeInstance.getPriority()).isEqualTo(UPDATED_PRIORITY);
+        assertThat(testCazeInstance.getRequiredTime()).isEqualTo(UPDATED_REQUIRED_TIME);
+        assertThat(testCazeInstance.isSecured()).isEqualTo(UPDATED_SECURED);
+        assertThat(testCazeInstance.getCmmnId()).isEqualTo(UPDATED_CMMN_ID);
+    }
+
+    @Test
+    @Transactional
+    public void updateNonExistingCazeInstance() throws Exception {
+        int databaseSizeBeforeUpdate = cazeInstanceRepository.findAll().size();
+
+        // Create the CazeInstance
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restCazeInstanceMockMvc.perform(put("/api/caze-instances")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(cazeInstance)))
+            .andExpect(status().isBadRequest());
+
+        // Validate the CazeInstance in the database
+        List<CazeInstance> cazeInstanceList = cazeInstanceRepository.findAll();
+        assertThat(cazeInstanceList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    public void deleteCazeInstance() throws Exception {
+        // Initialize the database
+        cazeInstanceService.save(cazeInstance);
+
+        int databaseSizeBeforeDelete = cazeInstanceRepository.findAll().size();
+
+        // Delete the cazeInstance
+        restCazeInstanceMockMvc.perform(delete("/api/caze-instances/{id}", cazeInstance.getId())
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
+
+        // Validate the database is empty
+        List<CazeInstance> cazeInstanceList = cazeInstanceRepository.findAll();
+        assertThat(cazeInstanceList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void equalsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CazeInstance.class);
+        CazeInstance cazeInstance1 = new CazeInstance();
+        cazeInstance1.setId(1L);
+        CazeInstance cazeInstance2 = new CazeInstance();
+        cazeInstance2.setId(cazeInstance1.getId());
+        assertThat(cazeInstance1).isEqualTo(cazeInstance2);
+        cazeInstance2.setId(2L);
+        assertThat(cazeInstance1).isNotEqualTo(cazeInstance2);
+        cazeInstance1.setId(null);
+        assertThat(cazeInstance1).isNotEqualTo(cazeInstance2);
+    }
+}
