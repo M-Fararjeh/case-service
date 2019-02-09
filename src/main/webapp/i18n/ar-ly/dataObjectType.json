@@ -1,0 +1,10 @@
+{
+  "caseServiceApp": {
+    "DataObjectType": {
+      "null": "",
+      "API": "API",
+      "DB": "DB",
+      "FILE": "FILE"
+    }
+  }
+}

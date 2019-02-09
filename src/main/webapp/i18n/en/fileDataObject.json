@@ -1,0 +1,23 @@
+{
+  "caseServiceApp": {
+    "fileDataObject": {
+      "home": {
+        "title": "File Data Objects",
+        "createLabel": "Create a new File Data Object",
+        "createOrEditLabel": "Create or edit a File Data Object"
+      },
+      "created": "A new File Data Object is created with identifier {{ param }}",
+      "updated": "A File Data Object is updated with identifier {{ param }}",
+      "deleted": "A File Data Object is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete File Data Object {{ id }}?"
+      },
+      "detail": {
+        "title": "File Data Object"
+      },
+      "cmisId": "Cmis Id",
+      "path": "Path",
+      "caseDataObject": "Case Data Object"
+    }
+  }
+}

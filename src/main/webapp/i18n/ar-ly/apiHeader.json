@@ -1,0 +1,23 @@
+{
+  "caseServiceApp": {
+    "apiHeader": {
+      "home": {
+        "title": "Api Headers",
+        "createLabel": "Create a new Api Header",
+        "createOrEditLabel": "Create or edit a Api Header"
+      },
+      "created": "A new Api Header is created with identifier {{ param }}",
+      "updated": "A Api Header is updated with identifier {{ param }}",
+      "deleted": "A Api Header is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Api Header {{ id }}?"
+      },
+      "detail": {
+        "title": "Api Header"
+      },
+      "key": "Key",
+      "value": "Value",
+      "apiDataObject": "Api Data Object"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "caseServiceApp": {
+    "camundaProcessInstance": {
+      "home": {
+        "title": "Camunda Process Instances",
+        "createLabel": "Create a new Camunda Process Instance",
+        "createOrEditLabel": "Create or edit a Camunda Process Instance"
+      },
+      "created": "A new Camunda Process Instance is created with identifier {{ param }}",
+      "updated": "A Camunda Process Instance is updated with identifier {{ param }}",
+      "deleted": "A Camunda Process Instance is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Camunda Process Instance {{ id }}?"
+      },
+      "detail": {
+        "title": "Camunda Process Instance"
+      },
+      "processInstanceId": "Process Instance Id",
+      "processInstanceName": "Process Instance Name",
+      "cazeInstance": "Caze Instance"
+    }
+  }
+}

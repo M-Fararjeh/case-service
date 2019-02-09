@@ -1,0 +1,25 @@
+{
+  "caseServiceApp": {
+    "apiDataObject": {
+      "home": {
+        "title": "Api Data Objects",
+        "createLabel": "Create a new Api Data Object",
+        "createOrEditLabel": "Create or edit a Api Data Object"
+      },
+      "created": "A new Api Data Object is created with identifier {{ param }}",
+      "updated": "A Api Data Object is updated with identifier {{ param }}",
+      "deleted": "A Api Data Object is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Api Data Object {{ id }}?"
+      },
+      "detail": {
+        "title": "Api Data Object"
+      },
+      "method": "Method",
+      "url": "Url",
+      "body": "Body",
+      "apiHeader": "Api Header",
+      "caseDataObject": "Case Data Object"
+    }
+  }
+}

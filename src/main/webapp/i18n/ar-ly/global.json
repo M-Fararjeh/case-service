@@ -8,6 +8,15 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "الكيانات",
+        "cazeInstance": "Caze Instance",
+        "cazeType": "Caze Type",
+        "camundaCaseInstance": "Camunda Case Instance",
+        "camundaProcessInstance": "Camunda Process Instance",
+        "caseDataObject": "Case Data Object",
+        "apiDataObject": "Api Data Object",
+        "apiHeader": "Api Header",
+        "dbDataObject": "Db Data Object",
+        "fileDataObject": "File Data Object",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

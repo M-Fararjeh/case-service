@@ -1,0 +1,101 @@
+{
+    "name": "CazeInstance",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "number",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creatorId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "issuerID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "caseDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "priority",
+            "fieldType": "CasePriority",
+            "fieldValues": "HIGH,NORMAL,LOW"
+        },
+        {
+            "fieldName": "requiredTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "secured",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "cmmnId",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "caseDataObject",
+            "otherEntityName": "caseDataObject",
+            "otherEntityRelationshipName": "caseId"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cazeInstance",
+            "otherEntityName": "cazeInstance",
+            "otherEntityRelationshipName": "relatedCaze"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cazeType",
+            "otherEntityName": "cazeType",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "cazeInstance"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "relatedCaze",
+            "otherEntityName": "cazeInstance",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "cazeInstance"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "camundaCaseInstance",
+            "otherEntityName": "camundaCaseInstance",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cazeInstance"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "camundaProcessInstance",
+            "otherEntityName": "camundaProcessInstance",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cazeInstance"
+        }
+    ],
+    "changelogDate": "20190209192706",
+    "entityTableName": "caze_instance",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

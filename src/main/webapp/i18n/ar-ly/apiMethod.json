@@ -1,0 +1,9 @@
+{
+  "caseServiceApp": {
+    "ApiMethod": {
+      "null": "",
+      "GET": "GET",
+      "POST": "POST"
+    }
+  }
+}
