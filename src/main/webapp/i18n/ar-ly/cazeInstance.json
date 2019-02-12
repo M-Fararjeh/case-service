@@ -27,9 +27,7 @@
       "secured": "Secured",
       "cmmnId": "Cmmn Id",
       "caseDataObject": "Case Data Object",
-      "cazeInstance": "Caze Instance",
       "cazeType": "Caze Type",
-      "relatedCaze": "Related Caze",
       "camundaCaseInstance": "Camunda Case Instance",
       "camundaProcessInstance": "Camunda Process Instance"
     }

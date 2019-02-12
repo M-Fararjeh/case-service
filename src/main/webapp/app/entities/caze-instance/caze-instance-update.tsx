@@ -8,7 +8,6 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntities as getCazeInstances } from 'app/entities/caze-instance/caze-instance.reducer';
 import { ICazeType } from 'app/shared/model/caze-type.model';
 import { getEntities as getCazeTypes } from 'app/entities/caze-type/caze-type.reducer';
 import { ICamundaCaseInstance } from 'app/shared/model/camunda-case-instance.model';
@@ -25,8 +24,6 @@ export interface ICazeInstanceUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface ICazeInstanceUpdateState {
   isNew: boolean;
-  cazeInstanceId: string;
-  relatedCazeId: string;
   cazeTypeId: string;
   camundaCaseInstanceId: string;
   camundaProcessInstanceId: string;
@@ -36,8 +33,6 @@ export class CazeInstanceUpdate extends React.Component<ICazeInstanceUpdateProps
   constructor(props) {
     super(props);
     this.state = {
-      cazeInstanceId: '0',
-      relatedCazeId: '0',
       cazeTypeId: '0',
       camundaCaseInstanceId: '0',
       camundaProcessInstanceId: '0',
@@ -58,7 +53,6 @@ export class CazeInstanceUpdate extends React.Component<ICazeInstanceUpdateProps
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getCazeInstances();
     this.props.getCazeTypes();
     this.props.getCamundaCaseInstances();
     this.props.getCamundaProcessInstances();
@@ -85,7 +79,7 @@ export class CazeInstanceUpdate extends React.Component<ICazeInstanceUpdateProps
   };
 
   render() {
-    const { cazeInstanceEntity, cazeInstances, cazeTypes, camundaCaseInstances, camundaProcessInstances, loading, updating } = this.props;
+    const { cazeInstanceEntity, cazeTypes, camundaCaseInstances, camundaProcessInstances, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -208,30 +202,17 @@ export class CazeInstanceUpdate extends React.Component<ICazeInstanceUpdateProps
                       : null}
                   </AvInput>
                 </AvGroup>
-                <AvGroup>
-                  <Label for="relatedCaze.id">
-                    <Translate contentKey="caseServiceApp.cazeInstance.relatedCaze">Related Caze</Translate>
-                  </Label>
-                  <AvInput id="caze-instance-relatedCaze" type="select" className="form-control" name="relatedCaze.id">
-                    <option value="" key="0" />
-                    {cazeInstances
-                      ? cazeInstances.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/caze-instance" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>
@@ -244,7 +225,6 @@ export class CazeInstanceUpdate extends React.Component<ICazeInstanceUpdateProps
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  cazeInstances: storeState.cazeInstance.entities,
   cazeTypes: storeState.cazeType.entities,
   camundaCaseInstances: storeState.camundaCaseInstance.entities,
   camundaProcessInstances: storeState.camundaProcessInstance.entities,
@@ -255,7 +235,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getCazeInstances,
   getCazeTypes,
   getCamundaCaseInstances,
   getCamundaProcessInstances,

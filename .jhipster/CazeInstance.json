@@ -1,5 +1,39 @@
 {
-    "name": "CazeInstance",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "caseDataObject",
+            "otherEntityName": "caseDataObject",
+            "otherEntityRelationshipName": "caseId",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cazeType",
+            "otherEntityName": "cazeType",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "cazeInstance",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "camundaCaseInstance",
+            "otherEntityName": "camundaCaseInstance",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cazeInstance",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "camundaProcessInstance",
+            "otherEntityName": "camundaProcessInstance",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cazeInstance",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
@@ -47,55 +81,12 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "caseDataObject",
-            "otherEntityName": "caseDataObject",
-            "otherEntityRelationshipName": "caseId"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "cazeInstance",
-            "otherEntityName": "cazeInstance",
-            "otherEntityRelationshipName": "relatedCaze"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "cazeType",
-            "otherEntityName": "cazeType",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "cazeInstance"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "relatedCaze",
-            "otherEntityName": "cazeInstance",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "cazeInstance"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "relationshipName": "camundaCaseInstance",
-            "otherEntityName": "camundaCaseInstance",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "cazeInstance"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "relationshipName": "camundaProcessInstance",
-            "otherEntityName": "camundaProcessInstance",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "cazeInstance"
-        }
-    ],
     "changelogDate": "20190209192706",
-    "entityTableName": "caze_instance",
     "dto": "no",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "caze_instance",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

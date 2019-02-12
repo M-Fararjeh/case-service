@@ -67,16 +67,9 @@ public class CazeInstance implements Serializable {
     @OneToMany(mappedBy = "caseId")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CaseDataObject> caseDataObjects = new HashSet<>();
-    @OneToMany(mappedBy = "relatedCaze")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<CazeInstance> cazeInstances = new HashSet<>();
     @ManyToOne
     @JsonIgnoreProperties("cazeInstances")
     private CazeType cazeType;
-
-    @ManyToOne
-    @JsonIgnoreProperties("cazeInstances")
-    private CazeInstance relatedCaze;
 
     @ManyToMany(mappedBy = "cazeInstances")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -265,31 +258,6 @@ public class CazeInstance implements Serializable {
         this.caseDataObjects = caseDataObjects;
     }
 
-    public Set<CazeInstance> getCazeInstances() {
-        return cazeInstances;
-    }
-
-    public CazeInstance cazeInstances(Set<CazeInstance> cazeInstances) {
-        this.cazeInstances = cazeInstances;
-        return this;
-    }
-
-    public CazeInstance addCazeInstance(CazeInstance cazeInstance) {
-        this.cazeInstances.add(cazeInstance);
-        cazeInstance.setRelatedCaze(this);
-        return this;
-    }
-
-    public CazeInstance removeCazeInstance(CazeInstance cazeInstance) {
-        this.cazeInstances.remove(cazeInstance);
-        cazeInstance.setRelatedCaze(null);
-        return this;
-    }
-
-    public void setCazeInstances(Set<CazeInstance> cazeInstances) {
-        this.cazeInstances = cazeInstances;
-    }
-
     public CazeType getCazeType() {
         return cazeType;
     }
@@ -301,19 +269,6 @@ public class CazeInstance implements Serializable {
 
     public void setCazeType(CazeType cazeType) {
         this.cazeType = cazeType;
-    }
-
-    public CazeInstance getRelatedCaze() {
-        return relatedCaze;
-    }
-
-    public CazeInstance relatedCaze(CazeInstance cazeInstance) {
-        this.relatedCaze = cazeInstance;
-        return this;
-    }
-
-    public void setRelatedCaze(CazeInstance cazeInstance) {
-        this.relatedCaze = cazeInstance;
     }
 
     public Set<CamundaCaseInstance> getCamundaCaseInstances() {

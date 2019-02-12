@@ -63,7 +63,8 @@ export class CazeInstance extends React.Component<ICazeInstanceProps, ICazeInsta
         <h2 id="caze-instance-heading">
           <Translate contentKey="caseServiceApp.cazeInstance.home.title">Caze Instances</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="caseServiceApp.cazeInstance.home.createLabel">Create new Caze Instance</Translate>
           </Link>
         </h2>
@@ -110,9 +111,6 @@ export class CazeInstance extends React.Component<ICazeInstanceProps, ICazeInsta
                 <th>
                   <Translate contentKey="caseServiceApp.cazeInstance.cazeType">Caze Type</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="caseServiceApp.cazeInstance.relatedCaze">Related Caze</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -143,13 +141,6 @@ export class CazeInstance extends React.Component<ICazeInstanceProps, ICazeInsta
                   <td>{cazeInstance.cmmnId}</td>
                   <td>
                     {cazeInstance.cazeType ? <Link to={`caze-type/${cazeInstance.cazeType.id}`}>{cazeInstance.cazeType.id}</Link> : ''}
-                  </td>
-                  <td>
-                    {cazeInstance.relatedCaze ? (
-                      <Link to={`caze-instance/${cazeInstance.relatedCaze.id}`}>{cazeInstance.relatedCaze.id}</Link>
-                    ) : (
-                      ''
-                    )}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
