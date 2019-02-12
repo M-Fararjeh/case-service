@@ -13,6 +13,7 @@ import ApiDataObject from './api-data-object';
 import ApiHeader from './api-header';
 import DbDataObject from './db-data-object';
 import FileDataObject from './file-data-object';
+import Category from './category';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -28,6 +29,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/api-header`} component={ApiHeader} />
       <ErrorBoundaryRoute path={`${match.url}/db-data-object`} component={DbDataObject} />
       <ErrorBoundaryRoute path={`${match.url}/file-data-object`} component={FileDataObject} />
+      <ErrorBoundaryRoute path={`${match.url}/category`} component={Category} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>
