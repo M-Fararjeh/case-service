@@ -22,5 +22,6 @@
     <include file="config/liquibase/changelog/20190209192710_added_entity_constraints_CaseDataObject.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190209192712_added_entity_constraints_ApiHeader.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190212135902_added_entity_constraints_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190209192707_added_entity_constraints_CazeType.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

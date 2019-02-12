@@ -47,6 +47,10 @@ import fileDataObject, {
 import category, {
   CategoryState
 } from 'app/entities/category/category.reducer';
+// prettier-ignore
+import cazeType, {
+  CazeTypeState
+} from 'app/entities/caze-type/caze-type.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

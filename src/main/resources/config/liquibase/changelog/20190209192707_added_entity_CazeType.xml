@@ -37,7 +37,9 @@
             <column name="secured" type="boolean">
                 <constraints nullable="true" />
             </column>
-
+            <column name="category_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_caze_type_category_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

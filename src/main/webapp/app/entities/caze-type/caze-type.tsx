@@ -26,7 +26,8 @@ export class CazeType extends React.Component<ICazeTypeProps> {
         <h2 id="caze-type-heading">
           <Translate contentKey="caseServiceApp.cazeType.home.title">Caze Types</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="caseServiceApp.cazeType.home.createLabel">Create new Caze Type</Translate>
           </Link>
         </h2>
@@ -49,6 +50,9 @@ export class CazeType extends React.Component<ICazeTypeProps> {
                 <th>
                   <Translate contentKey="caseServiceApp.cazeType.secured">Secured</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="caseServiceApp.cazeType.category">Category</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -66,6 +70,7 @@ export class CazeType extends React.Component<ICazeTypeProps> {
                   </td>
                   <td>{cazeType.requiredTime}</td>
                   <td>{cazeType.secured ? 'true' : 'false'}</td>
+                  <td>{cazeType.category ? <Link to={`category/${cazeType.category.id}`}>{cazeType.category.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${cazeType.id}`} color="info" size="sm">

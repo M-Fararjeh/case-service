@@ -38,6 +38,10 @@ public class CazeType implements Serializable {
     @Column(name = "secured")
     private Boolean secured;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Category category;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -97,6 +101,19 @@ public class CazeType implements Serializable {
 
     public void setSecured(Boolean secured) {
         this.secured = secured;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public CazeType category(Category category) {
+        this.category = category;
+        return this;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

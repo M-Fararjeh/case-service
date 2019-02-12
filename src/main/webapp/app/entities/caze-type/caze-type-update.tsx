@@ -8,6 +8,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { ICategory } from 'app/shared/model/category.model';
+import { getEntities as getCategories } from 'app/entities/category/category.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './caze-type.reducer';
 import { ICazeType } from 'app/shared/model/caze-type.model';
 // tslint:disable-next-line:no-unused-variable
@@ -18,12 +20,14 @@ export interface ICazeTypeUpdateProps extends StateProps, DispatchProps, RouteCo
 
 export interface ICazeTypeUpdateState {
   isNew: boolean;
+  categoryId: string;
 }
 
 export class CazeTypeUpdate extends React.Component<ICazeTypeUpdateProps, ICazeTypeUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
+      categoryId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -40,6 +44,8 @@ export class CazeTypeUpdate extends React.Component<ICazeTypeUpdateProps, ICazeT
     } else {
       this.props.getEntity(this.props.match.params.id);
     }
+
+    this.props.getCategories();
   }
 
   saveEntity = (event, errors, values) => {
@@ -63,7 +69,7 @@ export class CazeTypeUpdate extends React.Component<ICazeTypeUpdateProps, ICazeT
   };
 
   render() {
-    const { cazeTypeEntity, loading, updating } = this.props;
+    const { cazeTypeEntity, categories, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -129,15 +135,32 @@ export class CazeTypeUpdate extends React.Component<ICazeTypeUpdateProps, ICazeT
                     <Translate contentKey="caseServiceApp.cazeType.secured">Secured</Translate>
                   </Label>
                 </AvGroup>
+                <AvGroup>
+                  <Label for="category.id">
+                    <Translate contentKey="caseServiceApp.cazeType.category">Category</Translate>
+                  </Label>
+                  <AvInput id="caze-type-category" type="select" className="form-control" name="category.id">
+                    <option value="" key="0" />
+                    {categories
+                      ? categories.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/caze-type" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>
@@ -150,6 +173,7 @@ export class CazeTypeUpdate extends React.Component<ICazeTypeUpdateProps, ICazeT
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
+  categories: storeState.category.entities,
   cazeTypeEntity: storeState.cazeType.entity,
   loading: storeState.cazeType.loading,
   updating: storeState.cazeType.updating,
@@ -157,6 +181,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getCategories,
   getEntity,
   updateEntity,
   createEntity,

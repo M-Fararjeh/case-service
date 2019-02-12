@@ -52,13 +52,18 @@ export class CazeTypeDetail extends React.Component<ICazeTypeDetailProps> {
               </span>
             </dt>
             <dd>{cazeTypeEntity.secured ? 'true' : 'false'}</dd>
+            <dt>
+              <Translate contentKey="caseServiceApp.cazeType.category">Category</Translate>
+            </dt>
+            <dd>{cazeTypeEntity.category ? cazeTypeEntity.category.id : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/caze-type" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/caze-type/${cazeTypeEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

@@ -18,7 +18,8 @@
       "name": "Name",
       "priority": "Priority",
       "requiredTime": "Required Time",
-      "secured": "Secured"
+      "secured": "Secured",
+      "category": "Category"
     }
   }
 }
