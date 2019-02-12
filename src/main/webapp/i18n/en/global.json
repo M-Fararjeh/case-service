@@ -17,7 +17,6 @@
         "apiHeader": "Api Header",
         "dbDataObject": "Db Data Object",
         "fileDataObject": "File Data Object",
-        "category": "Category",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
