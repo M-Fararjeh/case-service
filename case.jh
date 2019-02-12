@@ -20,6 +20,12 @@ entity CazeType {
     secured Boolean
 }
 
+entity Category{
+	key String,
+    name String
+}
+
+
 entity CamundaCaseInstance{
 	caseInstanceId String,
     caseInstanceName String
@@ -83,6 +89,7 @@ relationship OneToMany {
 	CazeInstance to CaseDataObject{caseId},
     ApiDataObject to ApiHeader
     CazeInstance to CazeInstance{relatedCaze}
+    Category to Category
 }
 
 relationship ManyToMany {
