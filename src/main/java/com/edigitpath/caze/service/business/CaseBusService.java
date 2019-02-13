@@ -9,13 +9,14 @@ import com.edigitpath.caze.service.CazeTypeService;
 import com.edigitpath.caze.web.rest.caze.CazeDto;
 import org.camunda.bpm.engine.CaseService;
 import org.camunda.bpm.engine.runtime.CaseInstance;
-import org.camunda.bpm.engine.runtime.CaseInstanceBuilder;
-import org.camunda.bpm.engine.runtime.CaseInstanceQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class CaseBusService {
@@ -37,13 +38,13 @@ public class CaseBusService {
     private CaseService caseService;
 
     @Transactional
-    public String create(CazeDto cazeDto){
+    public String create(CazeDto cazeDto) {
 
-        CazeType cazeType=cazeTypeRepository.findByName(cazeDto.getName());
-        if (cazeType==null){
+        CazeType cazeType = cazeTypeRepository.findByName(cazeDto.getName());
+        if (cazeType == null) {
 
         }
-        CazeInstance cazeInstance=new CazeInstance();
+        CazeInstance cazeInstance = new CazeInstance();
 
         cazeInstance.setCreationDate(LocalDate.now());
         cazeInstance.setNumber(CaseNumberGenerator.generateNumber());
@@ -58,8 +59,18 @@ public class CaseBusService {
         cazeInstance.setPriority(cazeType.getPriority());
         cazeInstance.setName(cazeType.getName());
 
+        if (!CollectionUtils.isEmpty(cazeDto.getRelatedCases())) {
+            Set<CazeInstance> relatedCazes = new HashSet<>();
+            for (Long cazeId : cazeDto.getRelatedCases()) {
+                CazeInstance relatedCaze = new CazeInstance();
+                relatedCaze.setId(cazeId);
+                relatedCazes.add(relatedCaze);
+            }
+            cazeInstance.setRelatedCazes(relatedCazes);
+        }
+
         cazeInstanceRepository.save(cazeInstance);
-        CaseInstance caseInstance=  caseService.createCaseInstanceByKey("case");
+        CaseInstance caseInstance = caseService.createCaseInstanceByKey("case");
         cazeInstance.setCmmnId(caseInstance.getId());
         return String.valueOf(cazeInstance.getId());
     }

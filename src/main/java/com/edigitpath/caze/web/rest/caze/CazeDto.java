@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -32,6 +33,8 @@ public class CazeDto {
     public String getName() {
         return name;
     }
+
+    private Set<Long> relatedCases = new HashSet<>();
 
     @JsonProperty("name")
     public void setName(String name) {
@@ -88,4 +91,11 @@ public class CazeDto {
         return this;
     }
 
+    public Set<Long> getRelatedCases() {
+        return relatedCases;
+    }
+
+    public void setRelatedCases(Set<Long> relatedCases) {
+        this.relatedCases = relatedCases;
+    }
 }
