@@ -28,7 +28,13 @@ public interface CazeInstanceService {
      */
     Page<CazeInstance> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the CazeInstance with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<CazeInstance> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" cazeInstance.
      *

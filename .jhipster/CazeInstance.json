@@ -32,6 +32,15 @@
             "ownerSide": false,
             "otherEntityRelationshipName": "cazeInstance",
             "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "relatedCazes",
+            "otherEntityName": "cazeInstance",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cazeInstance",
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [

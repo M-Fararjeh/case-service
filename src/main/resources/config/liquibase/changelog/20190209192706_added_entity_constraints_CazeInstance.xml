@@ -14,5 +14,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="caze_type"/>
 
+        <addForeignKeyConstraint baseColumnNames="caze_instance_id"
+                                 baseTableName="caze_instance_related_cazes"
+                                 constraintName="fk_caze_instance_related_cazes_caze_instance_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+        <addForeignKeyConstraint baseColumnNames="related_cazes_id"
+                                 baseTableName="caze_instance_related_cazes"
+                                 constraintName="fk_caze_instance_related_cazes_related_cazes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caze_instance"/>
+        
     </changeSet>
 </databaseChangeLog>

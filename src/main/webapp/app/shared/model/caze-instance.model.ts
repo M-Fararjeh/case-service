@@ -3,6 +3,7 @@ import { ICaseDataObject } from 'app/shared/model/case-data-object.model';
 import { ICazeType } from 'app/shared/model/caze-type.model';
 import { ICamundaCaseInstance } from 'app/shared/model/camunda-case-instance.model';
 import { ICamundaProcessInstance } from 'app/shared/model/camunda-process-instance.model';
+import { ICazeInstance } from 'app/shared/model/caze-instance.model';
 
 export const enum CasePriority {
   HIGH = 'HIGH',
@@ -27,6 +28,7 @@ export interface ICazeInstance {
   cazeType?: ICazeType;
   camundaCaseInstances?: ICamundaCaseInstance[];
   camundaProcessInstances?: ICamundaProcessInstance[];
+  relatedCazes?: ICazeInstance[];
 }
 
 export const defaultValue: Readonly<ICazeInstance> = {

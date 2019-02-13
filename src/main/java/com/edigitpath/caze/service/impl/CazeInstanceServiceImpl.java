@@ -53,6 +53,15 @@ public class CazeInstanceServiceImpl implements CazeInstanceService {
         return cazeInstanceRepository.findAll(pageable);
     }
 
+    /**
+     * Get all the CazeInstance with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<CazeInstance> findAllWithEagerRelationships(Pageable pageable) {
+        return cazeInstanceRepository.findAllWithEagerRelationships(pageable);
+    }
+    
 
     /**
      * Get one cazeInstance by id.
@@ -64,7 +73,7 @@ public class CazeInstanceServiceImpl implements CazeInstanceService {
     @Transactional(readOnly = true)
     public Optional<CazeInstance> findOne(Long id) {
         log.debug("Request to get CazeInstance : {}", id);
-        return cazeInstanceRepository.findById(id);
+        return cazeInstanceRepository.findOneWithEagerRelationships(id);
     }
 
     /**

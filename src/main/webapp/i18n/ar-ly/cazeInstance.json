@@ -29,7 +29,8 @@
       "caseDataObject": "Case Data Object",
       "cazeType": "Caze Type",
       "camundaCaseInstance": "Camunda Case Instance",
-      "camundaProcessInstance": "Camunda Process Instance"
+      "camundaProcessInstance": "Camunda Process Instance",
+      "relatedCazes": "Related Cazes"
     }
   }
 }

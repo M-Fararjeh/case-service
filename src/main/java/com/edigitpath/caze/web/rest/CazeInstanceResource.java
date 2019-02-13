@@ -81,13 +81,19 @@ public class CazeInstanceResource {
      * GET  /caze-instances : get all the cazeInstances.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of cazeInstances in body
      */
     @GetMapping("/caze-instances")
-    public ResponseEntity<List<CazeInstance>> getAllCazeInstances(Pageable pageable) {
+    public ResponseEntity<List<CazeInstance>> getAllCazeInstances(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of CazeInstances");
-        Page<CazeInstance> page = cazeInstanceService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/caze-instances");
+        Page<CazeInstance> page;
+        if (eagerload) {
+            page = cazeInstanceService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = cazeInstanceService.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/caze-instances?eagerload=%b", eagerload));
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

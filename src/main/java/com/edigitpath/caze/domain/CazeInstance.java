@@ -81,6 +81,13 @@ public class CazeInstance implements Serializable {
     @JsonIgnore
     private Set<CamundaProcessInstance> camundaProcessInstances = new HashSet<>();
 
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "caze_instance_related_cazes",
+               joinColumns = @JoinColumn(name = "caze_instance_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "related_cazes_id", referencedColumnName = "id"))
+    private Set<CazeInstance> relatedCazes = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -319,6 +326,29 @@ public class CazeInstance implements Serializable {
 
     public void setCamundaProcessInstances(Set<CamundaProcessInstance> camundaProcessInstances) {
         this.camundaProcessInstances = camundaProcessInstances;
+    }
+
+    public Set<CazeInstance> getRelatedCazes() {
+        return relatedCazes;
+    }
+
+    public CazeInstance relatedCazes(Set<CazeInstance> cazeInstances) {
+        this.relatedCazes = cazeInstances;
+        return this;
+    }
+
+    public CazeInstance addRelatedCazes(CazeInstance cazeInstance) {
+        this.relatedCazes.add(cazeInstance);
+        return this;
+    }
+
+    public CazeInstance removeRelatedCazes(CazeInstance cazeInstance) {
+        this.relatedCazes.remove(cazeInstance);
+        return this;
+    }
+
+    public void setRelatedCazes(Set<CazeInstance> cazeInstances) {
+        this.relatedCazes = cazeInstances;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

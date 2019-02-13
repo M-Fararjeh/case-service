@@ -59,6 +59,7 @@ public class CacheConfiguration {
             cm.createCache(com.edigitpath.caze.domain.FileDataObject.class.getName(), jcacheConfiguration);
             cm.createCache(com.edigitpath.caze.domain.Category.class.getName(), jcacheConfiguration);
             cm.createCache(com.edigitpath.caze.domain.Category.class.getName() + ".subCategories", jcacheConfiguration);
+            cm.createCache(com.edigitpath.caze.domain.CazeInstance.class.getName() + ".relatedCazes", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

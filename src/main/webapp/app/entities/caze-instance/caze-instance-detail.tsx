@@ -102,6 +102,19 @@ export class CazeInstanceDetail extends React.Component<ICazeInstanceDetailProps
               <Translate contentKey="caseServiceApp.cazeInstance.cazeType">Caze Type</Translate>
             </dt>
             <dd>{cazeInstanceEntity.cazeType ? cazeInstanceEntity.cazeType.id : ''}</dd>
+            <dt>
+              <Translate contentKey="caseServiceApp.cazeInstance.relatedCazes">Related Cazes</Translate>
+            </dt>
+            <dd>
+              {cazeInstanceEntity.relatedCazes
+                ? cazeInstanceEntity.relatedCazes.map((val, i) => (
+                    <span key={val.id}>
+                      <a>{val.id}</a>
+                      {i === cazeInstanceEntity.relatedCazes.length - 1 ? '' : ', '}
+                    </span>
+                  ))
+                : null}
+            </dd>
           </dl>
           <Button tag={Link} to="/entity/caze-instance" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
